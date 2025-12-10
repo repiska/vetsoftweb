@@ -1,0 +1,9 @@
+{
+    "tailwindCSS.includeLanguages": {
+        "clojure": "html",
+        "clojurescript": "html"
+    },
+    "tailwindCSS.experimental.classRegex": [
+        "styled\\s+:[^\\s]+\\s+\"([^\"]*)\""
+    ]
+}

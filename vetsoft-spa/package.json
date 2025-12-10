@@ -1,0 +1,17 @@
+{
+  "name": "vetsoft-spa",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "shadow-cljs release app",
+    "dev": "shadow-cljs watch app"
+  },
+  "devDependencies": {
+    "shadow-cljs": "3.3.3",
+    "tailwindcss": "^4.1.17"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
