@@ -36,7 +36,7 @@
     </head>
     <body class=\"bg-white text-slate-800 antialiased font-sans\">
         <div id=\"app\"></div>
-        <script src=\"/js/main.js\"></script>
+        <script src=\"js/main.js\"></script>
     </body>
     </html>"))
 
