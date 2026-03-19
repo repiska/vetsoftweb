@@ -1,0 +1,13 @@
+DROP TRIGGER IF EXISTS price_change_trigger ON price_metadata;
+--;;
+DROP TRIGGER IF EXISTS price_change_trigger ON services;
+--;;
+DROP TRIGGER IF EXISTS price_change_trigger ON support_rates;
+--;;
+DROP TRIGGER IF EXISTS price_change_trigger ON modules;
+--;;
+DROP TRIGGER IF EXISTS price_change_trigger ON extra_items;
+--;;
+DROP TRIGGER IF EXISTS price_change_trigger ON license_tiers;
+--;;
+DROP FUNCTION IF EXISTS notify_price_change();

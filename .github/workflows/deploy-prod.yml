@@ -1,0 +1,30 @@
+name: Deploy to Production (Docker)
+
+# Manual trigger only — не деплоим автоматически на прод
+on:
+  workflow_dispatch:
+    inputs:
+      server:
+        description: 'Server SSH address (user@ip)'
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ inputs.server }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/vetsoft
+            git pull origin main
+            docker compose -f docker-compose.prod.yml up --build -d
+            sleep 15
+            curl -sf http://localhost:8080/health && echo "Deploy OK" || echo "Deploy FAILED"

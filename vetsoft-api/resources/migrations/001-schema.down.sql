@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS price_metadata;
+--;;
+DROP TABLE IF EXISTS services;
+--;;
+DROP TABLE IF EXISTS support_rates;
+--;;
+DROP TABLE IF EXISTS modules;
+--;;
+DROP TABLE IF EXISTS extra_items;
+--;;
+DROP TABLE IF EXISTS license_tiers;

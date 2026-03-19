@@ -13,7 +13,5 @@
         :build-hooks [(vetsoft.build/generate-html)]
         :devtools {:http-root "public"
                    :http-port 8080}
-        :dev-http {:port 8080
-                   :root "public"}
         :compiler-options {:optimizations :advanced
                           :closure-defines {goog.DEBUG false}}}}}

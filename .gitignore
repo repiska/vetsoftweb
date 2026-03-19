@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+target/
+*.jar
+*.class
+
+# ClojureScript
+.shadow-cljs/
+public/js/
+
+# Clojure
+/checkouts
+/src/gen
+pom.xml
+pom.xml.asc
+.lein-*
+.nrepl-*
+
+# IDE
+*.iml
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# Docker
+pgdata/
+backups/
+
+# Keep .env.example
+!.env.example

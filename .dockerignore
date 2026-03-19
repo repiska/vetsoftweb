@@ -1,0 +1,45 @@
+# Git
+.git
+.gitignore
+
+# Dependencies (rebuilt in Docker)
+node_modules/
+vetsoft-spa/node_modules/
+
+# Build artifacts
+target/
+vetsoft-api/target/
+vetsoft-spa/public/js/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Shadow-cljs
+.shadow-cljs/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Backups
+backups/
+
+# Specs/docs
+specs/
+.specify/
+.claude/
+*.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+docker-compose*.yml
+Caddyfile

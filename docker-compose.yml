@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: vetsoft
+      POSTGRES_PASSWORD: vetsoft
+      POSTGRES_DB: vetsoft
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vetsoft"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - "9090:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "jdbc:postgresql://db:5432/vetsoft?user=vetsoft&password=vetsoft"
+      PORT: "8080"
+      ADMIN_PASSWORD: "admin"
+
+volumes:
+  pgdata:

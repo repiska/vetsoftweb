@@ -4,13 +4,17 @@
   "private": true,
   "scripts": {
     "build": "shadow-cljs release app",
-    "dev": "shadow-cljs watch app"
+    "dev": "shadow-cljs watch app",
+    "build:css": "npx @tailwindcss/cli -i src/css/app.css -o public/css/app.css --minify",
+    "dev:css": "npx @tailwindcss/cli -i src/css/app.css -o public/css/app.css --watch"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.2.2",
     "shadow-cljs": "3.3.3",
     "tailwindcss": "^4.1.17"
   },
   "dependencies": {
+    "ogl": "^1.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   }

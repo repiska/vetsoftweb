@@ -1,0 +1,11 @@
+DELETE FROM price_metadata;
+--;;
+DELETE FROM services;
+--;;
+DELETE FROM support_rates;
+--;;
+DELETE FROM modules;
+--;;
+DELETE FROM extra_items;
+--;;
+DELETE FROM license_tiers;
