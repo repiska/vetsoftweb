@@ -348,8 +348,8 @@
      (map-indexed
       (fn [idx group]
         ^{:key (:title group)}
-        [Card {:class "stagger-card"
-               :style {:transition-delay (str (* idx 195) "ms")}}
+        [Card {:class "card-appear"
+               :style {:animation-delay (str (* idx 195) "ms")}}
          ;; Иконка с gradient фоном
          [:div {:class "inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 p-4 text-blue-600 mb-6"}
           [Icon {:name (:icon group) :class "text-4xl"}]]
@@ -713,7 +713,7 @@
                     (when on-nav-click (on-nav-click section)))]
     [:footer {:class "bg-slate-900 text-slate-500 py-14 relative"}
      ;; Gradient transition from WebGL bg to dark footer
-     [:div {:class "absolute -top-24 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-slate-900 pointer-events-none"}]
+     [:div {:class "absolute -top-40 left-0 right-0 h-40 bg-gradient-to-b from-transparent via-slate-900/30 to-slate-900 pointer-events-none"}]
      [Container
       ;; 3-column layout on desktop, stacked on mobile
       [:div {:class "grid grid-cols-1 md:grid-cols-3 gap-10 mb-10"}

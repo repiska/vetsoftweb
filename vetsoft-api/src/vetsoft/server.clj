@@ -1,6 +1,7 @@
 (ns vetsoft.server
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.json :refer [wrap-json-response wrap-json-body]]
+            [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.content-type :refer [wrap-content-type]]
             [ring.middleware.not-modified :refer [wrap-not-modified]]
@@ -67,6 +68,7 @@
   (-> app-routes
       wrap-json-response
       (wrap-json-body {:keywords? true})
+      wrap-params
       (wrap-resource "public")
       wrap-content-type
       wrap-not-modified

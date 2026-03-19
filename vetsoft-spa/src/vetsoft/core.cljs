@@ -226,7 +226,7 @@
                       (when (.-isIntersecting entry)
                         (.add (.-classList (.-target entry)) "section-visible"))))
                   #js {:threshold 0.15 :rootMargin "0px 0px -50px 0px"})]
-    (doseq [el (array-seq (.querySelectorAll js/document ".section-reveal, .stagger-card"))]
+    (doseq [el (array-seq (.querySelectorAll js/document ".section-reveal"))]
       (.observe observer el))
     (reset! reveal-observer observer)))
 
