@@ -141,21 +141,31 @@
   [obj]
   (js->clj obj :keywordize-keys true))
 
-(defn fetch-prices!
-  "Fetch pricing data from API and update app-state."
+(defn- api-available?
+  "Check if we're running with a backend (not static GitHub Pages)."
   []
-  (reset! app-state {:loading? true :error nil :prices nil})
-  (-> (js/fetch "/api/prices")
-      (.then (fn [response]
-               (if (.-ok response)
-                 (.json response)
-                 (throw (js/Error. (str "HTTP " (.-status response)))))))
-      (.then (fn [data]
-               (let [prices (js->clj-keys data)]
-                 (reset! app-state {:loading? false :error nil :prices prices}))))
-      (.catch (fn [error]
-                (js/console.warn "API unavailable, using fallback data:" (.-message error))
-                (reset! app-state {:loading? false :error nil :prices fallback-prices})))))
+  (not (re-find #"github\.io" (.. js/window -location -hostname))))
+
+(defn fetch-prices!
+  "Fetch pricing data from API and update app-state.
+   On static hosting (GitHub Pages) skips API call and uses fallback."
+  []
+  (if (api-available?)
+    (do
+      (reset! app-state {:loading? true :error nil :prices nil})
+      (-> (js/fetch "/api/prices")
+          (.then (fn [response]
+                   (if (.-ok response)
+                     (.json response)
+                     (throw (js/Error. (str "HTTP " (.-status response)))))))
+          (.then (fn [data]
+                   (let [prices (js->clj-keys data)]
+                     (reset! app-state {:loading? false :error nil :prices prices}))))
+          (.catch (fn [error]
+                    (js/console.warn "API unavailable, using fallback data:" (.-message error))
+                    (reset! app-state {:loading? false :error nil :prices fallback-prices})))))
+    ;; Static hosting — use fallback immediately
+    (reset! app-state {:loading? false :error nil :prices fallback-prices})))
 
 ;; === 3.1. SSE (Server-Sent Events) ===
 
@@ -163,24 +173,25 @@
 
 (defn connect-sse!
   "Connect to SSE stream for real-time price updates.
-   Automatically reconnects on error."
+   Only connects when backend API is available (not on static hosting)."
   []
-  (when-let [old @sse-connection]
-    (.close old))
-  (let [es (js/EventSource. "/api/prices/stream")]
-    (set! (.-onmessage es)
-          (fn [event]
-            (try
-              (let [prices (js->clj-keys (.parse js/JSON (.-data event)))]
-                (reset! app-state {:loading? false :error nil :prices prices}))
-              (catch :default e
-                (js/console.warn "SSE parse error:" e)))))
-    (set! (.-onerror es)
-          (fn [_]
-            (js/console.warn "SSE connection lost, reconnecting in 5s...")
-            (.close es)
-            (js/setTimeout connect-sse! 5000)))
-    (reset! sse-connection es)))
+  (when (api-available?)
+    (when-let [old @sse-connection]
+      (.close old))
+    (let [es (js/EventSource. "/api/prices/stream")]
+      (set! (.-onmessage es)
+            (fn [event]
+              (try
+                (let [prices (js->clj-keys (.parse js/JSON (.-data event)))]
+                  (reset! app-state {:loading? false :error nil :prices prices}))
+                (catch :default e
+                  (js/console.warn "SSE parse error:" e)))))
+      (set! (.-onerror es)
+            (fn [_]
+              (js/console.warn "SSE connection lost, reconnecting in 5s...")
+              (.close es)
+              (js/setTimeout connect-sse! 5000)))
+      (reset! sse-connection es))))
 
 ;; === 4. SCROLL SPY ===
 

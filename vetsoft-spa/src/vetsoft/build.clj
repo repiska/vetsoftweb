@@ -16,8 +16,8 @@
 
         <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
         <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
-        <link href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Commissioner:wght@300;400;500;600;700&subset=cyrillic&display=swap\" rel=\"stylesheet\">
-        <link rel=\"stylesheet\" href=\"/css/app.css\">
+        <link href=\"https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&subset=cyrillic&display=swap\" rel=\"stylesheet\">
+        <link rel=\"stylesheet\" href=\"css/app.css\">
 
         <script src=\"https://unpkg.com/@phosphor-icons/web\"></script>
     </head>
